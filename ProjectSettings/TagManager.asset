@@ -16,10 +16,10 @@ TagManager:
   - Wall
   - Nami
   - Flora
-  - NamiBlocks
-  - FloraBlocks
-  - 
-  - 
+  - NamiGround
+  - FloraGround
+  - NamiWall
+  - FloraWall
   - 
   - 
   - 
