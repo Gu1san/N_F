@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class ChangePlayers : MonoBehaviour
     [SerializeField] GameObject NamiPrefab;
     [SerializeField] GameObject FloraPrefab;
     private Vector3 currentPosition;
-    GameObject activePlayer;
+    public GameObject activePlayer;
 
     private void Start()
     {

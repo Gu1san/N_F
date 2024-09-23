@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private float xInput;
     private bool canDoubleJump = true;
     
-    private bool isFacingRight = true;
+    public bool isFacingRight = true;
     private bool isWallSliding;
     private float wallSlideSpeed = 2f;
 
@@ -40,10 +40,18 @@ public class PlayerMovement : MonoBehaviour
     private bool isDashing = false;
     readonly float dashDuration = 0.2f;
 
+    [Header("Camera")]
+    [SerializeField] private GameObject cameraFollowGO;
+    private float fallSpeedYDampingChangeThreshold;
+
+    private CameraFollowObject cameraFollowObject;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        cameraFollowObject = cameraFollowGO.GetComponent<CameraFollowObject>();
+        fallSpeedYDampingChangeThreshold = CameraManager.instance.fallSpeedYDampingChangeThreshold;
     }
 
     void Update()
@@ -65,6 +73,17 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 Dash();
+            }
+        }
+
+        if(!CameraManager.instance.IsLerpingYDamping)
+        {
+            if(rb.velocity.y < fallSpeedYDampingChangeThreshold && !CameraManager.instance.LerpedFromPlayerFalling)
+                CameraManager.instance.LerpYDamping(true);
+            else if(CameraManager.instance.LerpedFromPlayerFalling)
+            {
+                CameraManager.instance.LerpedFromPlayerFalling = false;
+                CameraManager.instance.LerpYDamping(false);
             }
         }
         dashCounter += Time.deltaTime;
@@ -97,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
         if (isWallSliding)
         {
             isWallJumping = false;
-            wallJumpDirection = -transform.localScale.x;
+            wallJumpDirection = isFacingRight ? -1 : 1;
             wallJumpCounter = wallJumpTime;
             CancelInvoke(nameof(StopWallJump));
         }
@@ -111,12 +130,7 @@ public class PlayerMovement : MonoBehaviour
             isWallJumping = true;
             rb.velocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y);
             wallJumpCounter = 0;
-
-            if(transform.localScale.x != wallJumpDirection)
-            {
-                Flip();
-            }
-
+            Flip();
             Invoke(nameof(StopWallJump), wallJumpDuration);
         }
     }
@@ -150,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
     private void Dash()
     {
         if (!canDash) return;
-        Vector2 dashDirection = new Vector2(transform.localScale.x * dashForce, 0);
+        Vector2 dashDirection = new Vector2(isFacingRight ? 1 : -1, 0) * dashForce;
         if(dashCounter > dashCooldown)
         {
             if (isWallSliding)
@@ -190,9 +204,8 @@ public class PlayerMovement : MonoBehaviour
     private void Flip()
     {
         isFacingRight = !isFacingRight;
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1;
-        transform.localScale = localScale;
+        transform.Rotate(new Vector3(0, isFacingRight ? 180 : -180, 0));
+        cameraFollowObject.CallTurn();
     }
 
     #endregion
