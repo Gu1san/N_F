@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 5939635151804899437}
   - component: {fileID: 699910307751536883}
   - component: {fileID: 5255301158017374135}
+  - component: {fileID: 728039608053655637}
   m_Layer: 9
   m_Name: Flora
   m_TagString: Untagged
@@ -231,10 +232,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 10432
   spriteRenderer: {fileID: 1629514373762395182}
+  isFacingRight: 1
   wallJumpPower: {x: 7, y: 18}
   canDash: 1
   dashForce: 20
   dashCooldown: 1
+  cameraFollowGO: {fileID: 0}
 --- !u!61 &699910307751536883
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -307,6 +310,18 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &728039608053655637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137381422674889654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 166287ddaea4234498e87e378789e307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4834960149760672426
 GameObject:
   m_ObjectHideFlags: 0

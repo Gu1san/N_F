@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     [SerializeField] Transform[] spawnPoints;
+    [SerializeField] GameObject[] roomEntrances;
     [SerializeField] ChangePlayers player;
     private int currentRoom;
 
@@ -23,7 +24,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        player.transform.position = spawnPoints[currentRoom].transform.position;
+        player.activePlayer.transform.position = spawnPoints[currentRoom].transform.position;
     }
 
     public void RespawnPlayer()
@@ -35,8 +36,9 @@ public class LevelManager : MonoBehaviour
     {
         if(currentRoom < spawnPoints.Length - 1)
         {
+            roomEntrances[currentRoom].SetActive(false);
             currentRoom++;
-            RespawnPlayer();
+            Debug.Log("Next room");
         }
         else
         {

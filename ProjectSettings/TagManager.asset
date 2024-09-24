@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Trap
+  - RoomEntrance
+  - Button
   layers:
   - Default
   - TransparentFX
@@ -20,8 +23,8 @@ TagManager:
   - FloraGround
   - NamiWall
   - FloraWall
-  - 
-  - 
+  - NamiButtom
+  - FloraButton
   - 
   - 
   - 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7323715615404596563}
   - component: {fileID: 5667237253790425410}
   - component: {fileID: 8598400828234660547}
+  - component: {fileID: 7426619654646168766}
   m_Layer: 8
   m_Name: Nami
   m_TagString: Untagged
@@ -116,10 +117,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5312
   spriteRenderer: {fileID: 4340302794996429270}
+  isFacingRight: 1
   wallJumpPower: {x: 7, y: 18}
   canDash: 1
   dashForce: 20
   dashCooldown: 1
+  cameraFollowGO: {fileID: 0}
 --- !u!61 &5667237253790425410
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -192,6 +195,18 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &7426619654646168766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158440458040766403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 166287ddaea4234498e87e378789e307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1217909799265069894
 GameObject:
   m_ObjectHideFlags: 0
