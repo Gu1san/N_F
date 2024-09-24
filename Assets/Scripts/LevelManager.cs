@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] GameObject[] roomEntrances;
     [SerializeField] ChangePlayers player;
+    public delegate void OnRestart();
+    public event OnRestart onRestart;
     private int currentRoom;
 
     private void Awake()
@@ -30,6 +33,7 @@ public class LevelManager : MonoBehaviour
     public void RespawnPlayer()
     {
         player.activePlayer.transform.position = spawnPoints[currentRoom].position;
+        onRestart?.Invoke();
     }
 
     public void NextRoom()

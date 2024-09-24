@@ -18,10 +18,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Controllers")]
     private float xInput;
-    private bool canDoubleJump = true;
+    [SerializeField]private bool canDoubleJump = true;
     
     public bool isFacingRight = true;
-    private bool isWallSliding;
+    [SerializeField]private bool isWallSliding;
     private float wallSlideSpeed = 2f;
 
     [Header("Wall Jump")]
@@ -58,7 +58,6 @@ public class PlayerMovement : MonoBehaviour
     {
         xInput = Input.GetAxisRaw("Horizontal");
         WallSlide();
-        WallJump();
         if (!isDashing)
         {
             if (!isWallJumping)
@@ -69,6 +68,10 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W) && !isWallSliding)
             {
                 Jump();
+            }
+            else
+            {
+                WallJump();
             }
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {

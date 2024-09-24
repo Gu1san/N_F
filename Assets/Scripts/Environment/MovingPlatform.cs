@@ -7,6 +7,17 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] Transform[] waypoints;
     [SerializeField] float speed = 3;
     int currentIndex;
+    Vector3 startPosition;
+
+    private void Start()
+    {
+        startPosition = transform.position;
+        LevelManager.instance.onRestart += () =>
+        {
+            StopAllCoroutines();
+            transform.position = startPosition;
+        };
+    }
 
     public void Activate()
     {
