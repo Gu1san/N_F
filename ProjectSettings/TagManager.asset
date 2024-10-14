@@ -8,6 +8,7 @@ TagManager:
   - Trap
   - RoomEntrance
   - Button
+  - Door
   layers:
   - Default
   - TransparentFX

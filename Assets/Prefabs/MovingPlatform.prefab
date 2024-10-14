@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6573375971911889841}
   - component: {fileID: 4603806456550619559}
+  - component: {fileID: 2776200072106942081}
   m_Layer: 6
   m_Name: MovingPlatform
   m_TagString: Ground
@@ -78,6 +79,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.014151, y: 1.027623}
   m_EdgeRadius: 0
+--- !u!114 &2776200072106942081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956069031123892776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbdca0e03e680524c8d6ddd6cc79501b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints: []
+  speed: 3
+  autoActivate: 0
 --- !u!1 &6889742830775465591
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,3 +339,18 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &-1123381677044097242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12395, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Palette Settings
+  m_EditorClassIdentifier: 
+  cellSizing: 0
+  m_TransparencySortMode: 0
+  m_TransparencySortAxis: {x: 0, y: 0, z: 1}

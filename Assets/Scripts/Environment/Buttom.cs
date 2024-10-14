@@ -2,20 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Buttom : MonoBehaviour
+public class Buttom : Interactable
 {
-    [SerializeField] MovingPlatform platform;
+    [SerializeField] Interactable targetObject;
+    [SerializeField] bool needHold;
     BoxCollider2D boxCollider;
 
     private void Start()
     {
         boxCollider = GetComponent<BoxCollider2D>();
-        LevelManager.instance.onRestart += () => { boxCollider.enabled = true; };
+        LevelManager.instance.onRestart += Reset;
     }
 
-    public void OnPress()
+    public override void Activate()
     {
-        platform.Activate();
-        boxCollider.enabled = false;
+        targetObject.Activate();
+        boxCollider.enabled = needHold;
+    }
+
+    public override void Deactivate()
+    {
+        if (needHold)
+        {
+            targetObject.Deactivate();
+        }
+    }
+
+    public override void Reset()
+    {
+        boxCollider.enabled = true;
     }
 }

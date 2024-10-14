@@ -18,7 +18,18 @@ public class PlayerManager : MonoBehaviour
         {
             if(collision.gameObject.TryGetComponent(out Buttom b))
             {
-                b.OnPress();
+                b.Activate();
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Button"))
+        {
+            if (collision.gameObject.TryGetComponent(out Buttom b))
+            {
+                b.Deactivate();
             }
         }
     }
