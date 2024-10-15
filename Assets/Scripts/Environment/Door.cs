@@ -37,14 +37,16 @@ public class Door : Interactable
         {
             if(collision.gameObject.TryGetComponent(out PlayerManager p))
             {
-                foreach(Key key in p.collectedKeys)
+                Key key = null;
+                foreach(Key k in p.collectedKeys)
                 {
-                    if(key.targetDoor == this)
+                    if(k.targetDoor == this)
                     {
-                        key.Activate();
+                        key = k;
                         Activate();
                     }
                 }
+                if(key != null) key.Deactivate();
             }
         }
     }
