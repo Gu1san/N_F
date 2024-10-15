@@ -32,4 +32,20 @@ public class Buttom : Interactable
     {
         boxCollider.enabled = true;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Activate();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Deactivate();
+        }
+    }
 }
