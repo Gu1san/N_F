@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float dashForce = 5;
     [SerializeField] float dashCooldown = 1;
     private float dashCounter;
-    private bool isDashing = false;
+    public bool isDashing = false;
     readonly float dashDuration = 0.2f;
 
     [Header("Camera")]

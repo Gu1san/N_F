@@ -14,6 +14,7 @@ public class Key : Interactable
     private void Start()
     {
         startPosition = transform.position;
+        LevelManager.instance.onRestart += Reset;
     }
 
     public override void Activate()
