@@ -11474,10 +11474,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flora
       objectReference: {fileID: 0}
-    - target: {fileID: 1137381422674889654, guid: 35775cd74a82b0c4d8d36ac509a84f74, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 4076542986262898915, guid: 35775cd74a82b0c4d8d36ac509a84f74, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.20083714
@@ -11664,10 +11660,6 @@ PrefabInstance:
     - target: {fileID: 1158440458040766403, guid: 671d044256d13564c810562434c8befd, type: 3}
       propertyPath: m_Name
       value: Nami
-      objectReference: {fileID: 0}
-    - target: {fileID: 1158440458040766403, guid: 671d044256d13564c810562434c8befd, type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6627862758836610860, guid: 671d044256d13564c810562434c8befd, type: 3}
       propertyPath: m_LocalPosition.x

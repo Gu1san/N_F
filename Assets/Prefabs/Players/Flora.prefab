@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 728039608053655637}
   m_Layer: 9
   m_Name: Flora
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,6 +149,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5679531845532802688}
   - {fileID: 1424071307938628143}
   - {fileID: 6199594105513087593}
   - {fileID: 7083397844130679398}
@@ -232,7 +233,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 10432
   spriteRenderer: {fileID: 1629514373762395182}
+  canDoubleJump: 1
   isFacingRight: 1
+  isWallSliding: 0
   wallJumpPower: {x: 7, y: 18}
   canDash: 1
   dashForce: 20
@@ -322,6 +325,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 166287ddaea4234498e87e378789e307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectedKeys: []
+--- !u!1 &1299144141094405077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5679531845532802688}
+  m_Layer: 9
+  m_Name: KeyTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5679531845532802688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299144141094405077}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4076542986262898915}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4834960149760672426
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Key : Interactable
 {
     public Door targetDoor;
     private PlayerManager player;
+    private Transform target;
     [SerializeField]CircleCollider2D circleCollider;
     [SerializeField] float speed = 4;
     Vector2 startPosition;
@@ -30,7 +31,7 @@ public class Key : Interactable
 
     IEnumerator FollowPlayer()
     {
-        transform.position = Vector2.Lerp(transform.position, player.transform.position, speed * Time.deltaTime);
+        transform.position = Vector2.Lerp(transform.position, target.position, speed * Time.deltaTime);
         yield return null;
         StartCoroutine(FollowPlayer());
     }
@@ -42,6 +43,7 @@ public class Key : Interactable
             if (collision.gameObject.TryGetComponent(out PlayerManager p))
             {
                 player = p;
+                target = player.transform.GetChild(0);
                 Activate();
             }
         }
