@@ -4,27 +4,32 @@ using UnityEngine;
 
 public class BreakableWall : Interactable
 {
-    Collider2D[] colliders;
+    Collider2D wallCollider;
 
     private void Start()
     {
-        colliders = GetComponents<Collider2D>();
+        wallCollider = GetComponent<Collider2D>();
     }
 
     public override void Activate()
     {
-        foreach (Collider2D c in colliders) { c.enabled = false; }
+        wallCollider.enabled = false;
+        GetComponentInChildren<SpriteRenderer>().color = Color.red;
         LevelManager.instance.onRestart += Reset;
     }
 
     public override void Deactivate()
     {
-        
+        if(wallCollider.enabled){
+            wallCollider.isTrigger = true;
+        }
     }
 
     public override void Reset()
     {
-        foreach (Collider2D c in colliders) { c.enabled = true; }
+        wallCollider.enabled = true;
+        wallCollider.isTrigger = false;
+        GetComponentInChildren<SpriteRenderer>().color = Color.white;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

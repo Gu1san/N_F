@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -167,8 +168,24 @@ public class PlayerMovement : MonoBehaviour
     private void Dash()
     {
         if (!canDash) return;
+
         Vector2 dashDirection = new Vector2(isFacingRight ? 1 : -1, 0) * dashForce;
-        if(dashCounter > dashCooldown)
+        
+        if(gameObject.layer == LayerMask.NameToLayer("Nami")){
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dashDirection.normalized, dashDuration * dashForce, wallLayer);
+            if (hit.collider != null)
+            {
+                if (hit.collider.CompareTag("BreakableWall"))
+                {
+                    if (hit.collider.TryGetComponent(out BreakableWall _))
+                    {
+                        hit.collider.isTrigger = true;
+                    }
+                }
+            }
+        }
+        
+        if (dashCounter > dashCooldown)
         {
             if (isWallSliding)
             {
@@ -191,6 +208,11 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         if(IsGrounded()) canDash = true;
         rb.gravityScale = g;
+    }
+
+    IEnumerator RestoreBreakableWall(RaycastHit2D hit){
+        yield return new WaitForSeconds(dashDuration);
+        hit.collider.GetComponent<BreakableWall>().Deactivate();
     }
     #endregion
 

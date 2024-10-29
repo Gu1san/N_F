@@ -9,6 +9,7 @@ TagManager:
   - RoomEntrance
   - Button
   - Door
+  - BreakableWall
   layers:
   - Default
   - TransparentFX
