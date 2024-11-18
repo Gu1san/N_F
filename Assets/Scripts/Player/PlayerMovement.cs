@@ -34,12 +34,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Vector2 wallJumpPower = new(7, 18);
 
     [Header("Dash")]
-    [SerializeField] private bool canDash = true;
+    private bool canDash = true;
     [SerializeField] float dashForce = 5;
     [SerializeField] float dashCooldown = 1;
     private float dashCounter;
     public bool isDashing = false;
     readonly float dashDuration = 0.2f;
+
+    [Header("Climb")]
+    [SerializeField]private bool canClimb;
+    private bool isClimbing;
+    [SerializeField] float climbSpeed = 3;
 
     [Header("Camera")]
     [SerializeField] private GameObject cameraFollowGO;
@@ -70,8 +75,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 Jump();
             }
+            else if(canClimb && Input.GetKey(KeyCode.Space)){
+                Climb();
+            }
             else
             {
+                rb.gravityScale = 5;
                 WallJump();
             }
             if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -159,7 +168,13 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsWalled()
     {
-        return Physics2D.OverlapBox(wallCheck.position, new Vector2(0.2f, spriteRenderer.bounds.size.y - 0.1f), 0, wallLayer);
+        Collider2D wall = Physics2D.OverlapBox(wallCheck.position, new Vector2(0.2f, spriteRenderer.bounds.size.y - 0.1f), 0, wallLayer);
+        if(wall?.gameObject.layer == LayerMask.NameToLayer("ClimbableWall") && gameObject.layer == LayerMask.NameToLayer("Flora")){
+            canClimb = true;
+        }else{
+            canClimb = false;
+        }
+        return wall;
     }
 
     #endregion
@@ -187,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (dashCounter > dashCooldown)
         {
-            if (isWallSliding)
+            if (isWallSliding || isClimbing)
             {
                 dashDirection.x *= -1;
                 Flip();
@@ -235,6 +250,23 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
+    #region Climb
+
+    private void Climb(){
+        float yInput = Input.GetAxisRaw("Vertical");
+        isClimbing = true;
+        rb.gravityScale = 0;
+        if (yInput != 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, yInput * climbSpeed);
+        }
+        else
+        {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+        }
+    }
+
+    #endregion
     private bool IsGrounded()
     {
         return Physics2D.OverlapBox(groundCheck.position, new Vector2(spriteRenderer.bounds.size.x - 0.1f, 0.2f), 0, groundLayer);
