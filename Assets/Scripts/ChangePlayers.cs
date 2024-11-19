@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class ChangePlayers : MonoBehaviour
 {
-    [SerializeField] GameObject NamiPrefab;
-    [SerializeField] GameObject FloraPrefab;
+    public GameObject NamiPrefab;
+    public GameObject FloraPrefab;
+    [SerializeField] CameraFollowObject cameraFollow;
     private Vector3 currentPosition;
     public GameObject activePlayer;
 
@@ -21,17 +22,8 @@ public class ChangePlayers : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            currentPosition = activePlayer.transform.position;
-            if (activePlayer == NamiPrefab)
-            {
-                FloraPrefab.transform.position = currentPosition;
-                activePlayer = FloraPrefab;
-            }
-            else
-            {
-                NamiPrefab.transform.position = currentPosition;
-                activePlayer = NamiPrefab;
-            }
+            activePlayer = activePlayer == NamiPrefab ? FloraPrefab : NamiPrefab;
+            cameraFollow.ChangePlayer(activePlayer.GetComponent<PlayerMovement>());
             NamiPrefab.SetActive(!NamiPrefab.activeInHierarchy);
             FloraPrefab.SetActive(!FloraPrefab.activeInHierarchy);
         }

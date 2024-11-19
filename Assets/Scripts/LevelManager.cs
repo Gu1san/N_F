@@ -27,13 +27,14 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        player.activePlayer.transform.position = spawnPoints[currentRoom].transform.position;
+        RespawnPlayer(false);
     }
 
-    public void RespawnPlayer()
+    public void RespawnPlayer(bool resetScene = true)
     {
-        player.activePlayer.transform.position = spawnPoints[currentRoom].position;
-        onRestart?.Invoke();
+        player.NamiPrefab.transform.position = spawnPoints[currentRoom].position;
+        player.FloraPrefab.transform.position = spawnPoints[currentRoom].position;
+        if(resetScene) onRestart?.Invoke();
     }
 
     public void NextRoom()
@@ -46,7 +47,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Última sala da fase");
+            Debug.Log("ï¿½ltima sala da fase");
         }
     }
 }
