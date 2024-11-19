@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,12 +9,14 @@ public class CameraFollowObject : MonoBehaviour
 
     [Header("Flip Rotation Stats")]
     [SerializeField] float flipYRotationTime = .5f;
+    [SerializeField] float transitionTime = 0.5f;
 
     List<PlayerMovement> player = new();
 
     int index = 0;
 
     bool isFacingRight;
+    bool isTransitioning;
 
     private void Start()
     {
@@ -23,18 +26,22 @@ public class CameraFollowObject : MonoBehaviour
 
     void Update()
     {
-        transform.position = playerTransform.position;
+        if(!isTransitioning)
+            transform.position = playerTransform.position;
     }
 
     public void ChangePlayer(PlayerMovement newPlayer){
         if(player.Count <= 1){
             player.Add(newPlayer);
         }
+
         index = (index+1) % player.Count;
+        StartCoroutine(PlayerTransition(player[index].transform));
         playerTransform = player[index].transform;
 
-        if(player[index].isFacingRight != isFacingRight)
+        if(player[index].isFacingRight != isFacingRight){
             CallTurn();
+        }
     }
 
     public void CallTurn()
@@ -54,5 +61,26 @@ public class CameraFollowObject : MonoBehaviour
         {
             return 180;
         }
+    }
+
+    IEnumerator PlayerTransition(Transform newPlayerTransform)
+    {
+        isTransitioning = true;
+
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = newPlayerTransform.position;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < transitionTime)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / transitionTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+        playerTransform = newPlayerTransform;
+        isTransitioning = false;
     }
 }
