@@ -1,14 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     [SerializeField] Transform[] spawnPoints;
-    [SerializeField] GameObject[] roomEntrances;
+    [SerializeField] RoomEntrance[] roomEntrances;
     [SerializeField] ChangePlayers player;
+    [SerializeField] CinemachineConfiner2D cameraConfiner;
+    [SerializeField] CompositeCollider2D[] cameraColliders;
+
     public delegate void OnRestart();
     public event OnRestart onRestart;
     private int currentRoom;
@@ -41,8 +45,14 @@ public class LevelManager : MonoBehaviour
     {
         if(currentRoom < spawnPoints.Length - 1)
         {
-            roomEntrances[currentRoom].SetActive(false);
+            roomEntrances[currentRoom].EnableCollider();
             currentRoom++;
+            cameraConfiner.m_BoundingShape2D = cameraColliders[currentRoom];
+            if(player.FloraPrefab.activeInHierarchy){
+                player.NamiPrefab.transform.position = spawnPoints[currentRoom].position;
+            }else{
+                player.FloraPrefab.transform.position = spawnPoints[currentRoom].position;
+            }
             Debug.Log("Next room");
         }
         else
