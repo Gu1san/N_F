@@ -22,8 +22,10 @@ public class ChangePlayers : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            PlayerMovement playerMov = activePlayer.GetComponent<PlayerMovement>();
+            if(!playerMov.canSwitch) return;
             activePlayer = activePlayer == NamiPrefab ? FloraPrefab : NamiPrefab;
-            cameraFollow.ChangePlayer(activePlayer.GetComponent<PlayerMovement>());
+            cameraFollow.ChangePlayer(playerMov);
             NamiPrefab.SetActive(!NamiPrefab.activeInHierarchy);
             FloraPrefab.SetActive(!FloraPrefab.activeInHierarchy);
         }

@@ -16,10 +16,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] SpriteRenderer spriteRenderer;
+    private Animator anim;
 
     [Header("Controllers")]
     private float xInput;
     [SerializeField]private bool canDoubleJump = true;
+    public bool canSwitch = true;
     
     public bool isFacingRight = true;
     [SerializeField]private bool isWallSliding;
@@ -55,9 +57,9 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         cameraFollowObject = cameraFollowGO.GetComponent<CameraFollowObject>();
         fallSpeedYDampingChangeThreshold = CameraManager.instance.fallSpeedYDampingChangeThreshold;
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -207,9 +209,11 @@ public class PlayerMovement : MonoBehaviour
                 dashDirection.x *= -1;
                 Flip();
             }
+            anim.SetTrigger("Dash");
             float initialGravityScale = rb.gravityScale;
             rb.gravityScale = 0;
             isDashing = true;
+            canSwitch = false;
             canDash = false;
             rb.velocity = dashDirection;
             dashCounter = 0;
@@ -221,6 +225,7 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;
+        canSwitch = true;
         if(IsGrounded()) canDash = true;
         rb.gravityScale = g;
     }
