@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 767104387266083785}
   - component: {fileID: 2029794556754284525}
   - component: {fileID: 158409439012492855}
+  - component: {fileID: 4155829799431990896}
   m_Layer: 15
   m_Name: Button
   m_TagString: Button
@@ -146,6 +147,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetObject: {fileID: 0}
   needHold: 0
+--- !u!95 &4155829799431990896
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590120408906712938}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c0b7b8b8b7782fb45b340e78f520d77b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7151432053829788989
 GameObject:
   m_ObjectHideFlags: 0

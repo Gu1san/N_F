@@ -10,6 +10,7 @@ public class Door : Interactable
     void Start()
     {
         doorColliders = GetComponentsInChildren<BoxCollider2D>();
+        LevelManager.instance.onRestart += Reset;
     }
 
     public override void Activate()
@@ -32,6 +33,7 @@ public class Door : Interactable
     public override void Reset()
     {
         Deactivate();
+        GetComponentInChildren<SpriteRenderer>().color = Color.white;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

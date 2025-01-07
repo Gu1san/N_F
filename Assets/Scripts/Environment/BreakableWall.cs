@@ -11,6 +11,7 @@ public class BreakableWall : Interactable
     private void Start()
     {
         wallCollider = GetComponent<Collider2D>();
+        LevelManager.instance.onRestart += Reset;
     }
 
     public override async void Activate()
@@ -19,7 +20,6 @@ public class BreakableWall : Interactable
         Instantiate(particle, transform.position, Quaternion.identity);
         GetComponentInChildren<SpriteRenderer>().color = targetColor;
         await CameraShake.instance.Shake();
-        LevelManager.instance.onRestart += Reset;
     }
 
     public override void Deactivate()
