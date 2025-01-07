@@ -5,11 +5,22 @@ using UnityEngine;
 
 public class ChangePlayers : MonoBehaviour
 {
+    public static ChangePlayers instance;
     public GameObject NamiPrefab;
     public GameObject FloraPrefab;
     [SerializeField] CameraFollowObject cameraFollow;
     private Vector3 currentPosition;
     public GameObject activePlayer;
+    public Key collectedKey;
+
+    private void Awake() {
+        if(instance == null){
+            instance = this;
+        }
+        else{
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -27,9 +38,10 @@ public class ChangePlayers : MonoBehaviour
             if(!playerMov.canSwitch) return;
             activePlayer = activePlayer == NamiPrefab ? FloraPrefab : NamiPrefab;
             activePlayer.transform.position = currentPosition;
-            cameraFollow.ChangePlayer(playerMov);
+            cameraFollow.ChangePlayer();
             NamiPrefab.SetActive(!NamiPrefab.activeInHierarchy);
             FloraPrefab.SetActive(!FloraPrefab.activeInHierarchy);
+            if(collectedKey != null)collectedKey.target = activePlayer.transform.GetChild(0);
         }
     }
 }

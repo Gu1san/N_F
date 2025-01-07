@@ -68,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         WallSlide();
         if (!isDashing)
         {
+            isClimbing = false;
             if (!isWallJumping)
             {
                 Move();

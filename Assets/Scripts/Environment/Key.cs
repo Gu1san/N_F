@@ -5,7 +5,6 @@ using UnityEngine;
 public class Key : Interactable
 {
     public Door targetDoor;
-    private PlayerManager player;
     public Transform target;
     [SerializeField]CircleCollider2D circleCollider;
     [SerializeField] float speed = 4;
@@ -21,7 +20,7 @@ public class Key : Interactable
 
     public override void Activate()
     {
-        player.collectedKeys.Add(this);
+        ChangePlayers.instance.collectedKey = this;
         StartCoroutine(FollowPlayer());
         circleCollider.enabled = false;
     }
@@ -29,7 +28,7 @@ public class Key : Interactable
     public override void Deactivate()
     {
         StopAllCoroutines();
-        player.collectedKeys.Remove(this);
+        ChangePlayers.instance.collectedKey = null;
         spriteRenderer.enabled = false;
     }
 
@@ -44,12 +43,8 @@ public class Key : Interactable
     {
         if (collision.CompareTag("Player"))
         {
-            if (collision.gameObject.TryGetComponent(out PlayerManager p))
-            {
-                player = p;
-                target = player.transform.GetChild(0);
-                Activate();
-            }
+            target = ChangePlayers.instance.activePlayer.transform.GetChild(0);
+            Activate();
         }
     }
 

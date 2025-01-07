@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public List<Key> collectedKeys;
-
     private PlayerMovement movement;
     private Rigidbody2D rb;
 

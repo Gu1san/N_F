@@ -11,7 +11,7 @@ public class CameraFollowObject : MonoBehaviour
     [SerializeField] float flipYRotationTime = .5f;
     [SerializeField] float transitionTime = 0.5f;
 
-    List<PlayerMovement> player = new();
+    [SerializeField] PlayerMovement[] player;
 
     int index = 0;
 
@@ -20,7 +20,6 @@ public class CameraFollowObject : MonoBehaviour
 
     private void Start()
     {
-        player.Add(playerTransform.gameObject.GetComponent<PlayerMovement>());
         isFacingRight = player[0].isFacingRight;
     }
 
@@ -30,12 +29,8 @@ public class CameraFollowObject : MonoBehaviour
             transform.position = playerTransform.position;
     }
 
-    public void ChangePlayer(PlayerMovement newPlayer){
-        if(player.Count <= 1){
-            player.Add(newPlayer);
-        }
-
-        index = (index+1) % player.Count;
+    public void ChangePlayer(){
+        index = (index+1) % player.Length;
         StartCoroutine(PlayerTransition(player[index].transform));
         playerTransform = player[index].transform;
 

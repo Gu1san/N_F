@@ -38,17 +38,12 @@ public class Door : Interactable
     {
         if (collision.CompareTag("Player"))
         {
-            if(collision.gameObject.TryGetComponent(out PlayerManager p))
+            Key k = ChangePlayers.instance.collectedKey;
+            if(k?.targetDoor == this)
             {
-                foreach(Key k in p.collectedKeys)
-                {
-                    if(k.targetDoor == this)
-                    {
-                        key = k;
-                        k.target = transform;
-                        Invoke(nameof(DisableKey), .5f);
-                    }
-                }
+                key = k;
+                k.target = transform;
+                Invoke(nameof(DisableKey), .5f);
             }
         }
     }
