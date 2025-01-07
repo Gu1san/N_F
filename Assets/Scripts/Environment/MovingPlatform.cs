@@ -29,7 +29,7 @@ public class MovingPlatform : Interactable
 
     public override void Reset()
     {
-        StopAllCoroutines();
+        if(!autoActivate) StopAllCoroutines();
         transform.position = startPosition;
     }
 
