@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public List<Key> collectedKeys;
-    public CameraShake cameraShake;
 
     private PlayerMovement movement;
     private Rigidbody2D rb;
@@ -20,7 +19,7 @@ public class PlayerManager : MonoBehaviour
         if (collision.CompareTag("Trap"))
         {
             FreezePlayer(true);
-            await cameraShake.Shake();
+            await CameraShake.instance.Shake();
             LevelManager.instance.RespawnPlayer();
             FreezePlayer(false);
         }

@@ -5,16 +5,20 @@ using UnityEngine;
 public class BreakableWall : Interactable
 {
     Collider2D wallCollider;
+    [SerializeField] GameObject particle;
+    [SerializeField] Color targetColor;
 
     private void Start()
     {
         wallCollider = GetComponent<Collider2D>();
     }
 
-    public override void Activate()
+    public override async void Activate()
     {
         wallCollider.enabled = false;
-        GetComponentInChildren<SpriteRenderer>().color = Color.red;
+        Instantiate(particle, transform.position, Quaternion.identity);
+        GetComponentInChildren<SpriteRenderer>().color = targetColor;
+        await CameraShake.instance.Shake();
         LevelManager.instance.onRestart += Reset;
     }
 

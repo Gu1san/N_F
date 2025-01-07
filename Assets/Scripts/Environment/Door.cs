@@ -5,6 +5,8 @@ using UnityEngine;
 public class Door : Interactable
 {
     BoxCollider2D[] doorColliders;
+    [SerializeField] Color targetColor;
+    private Key key;
     void Start()
     {
         doorColliders = GetComponentsInChildren<BoxCollider2D>();
@@ -12,6 +14,7 @@ public class Door : Interactable
 
     public override void Activate()
     {
+        GetComponentInChildren<SpriteRenderer>().color = targetColor;
         foreach (BoxCollider2D collider in doorColliders)
         {
             collider.enabled = false;
@@ -37,17 +40,21 @@ public class Door : Interactable
         {
             if(collision.gameObject.TryGetComponent(out PlayerManager p))
             {
-                Key key = null;
                 foreach(Key k in p.collectedKeys)
                 {
                     if(k.targetDoor == this)
                     {
                         key = k;
-                        Activate();
+                        k.target = transform;
+                        Invoke(nameof(DisableKey), .5f);
                     }
                 }
-                if(key != null) key.Deactivate();
             }
         }
+    }
+
+    private void DisableKey(){
+        Activate();
+        key.Deactivate();
     }
 }

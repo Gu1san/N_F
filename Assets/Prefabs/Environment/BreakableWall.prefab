@@ -91,6 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92023ec5157729a48b9284f634b26266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particle: {fileID: 3935277159138104606, guid: c3a7dd642ff06bf40b9f2fa5fe1e9adc, type: 3}
+  targetColor: {r: 1, g: 0, b: 0, a: 0.3529412}
 --- !u!1 &6787885727696459654
 GameObject:
   m_ObjectHideFlags: 0

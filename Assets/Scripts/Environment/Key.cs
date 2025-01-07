@@ -6,14 +6,16 @@ public class Key : Interactable
 {
     public Door targetDoor;
     private PlayerManager player;
-    private Transform target;
+    public Transform target;
     [SerializeField]CircleCollider2D circleCollider;
     [SerializeField] float speed = 4;
     Vector2 startPosition;
+    SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         startPosition = transform.position;
+        spriteRenderer = GetComponent<SpriteRenderer>();
         LevelManager.instance.onRestart += Reset;
     }
 
@@ -28,6 +30,7 @@ public class Key : Interactable
     {
         StopAllCoroutines();
         player.collectedKeys.Remove(this);
+        spriteRenderer.enabled = false;
     }
 
     IEnumerator FollowPlayer()
@@ -55,5 +58,6 @@ public class Key : Interactable
         StopAllCoroutines();
         transform.position = startPosition;
         circleCollider.enabled = true;
+        spriteRenderer.enabled = true;
     }
 }
